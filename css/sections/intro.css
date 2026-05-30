@@ -1,0 +1,58 @@
+/* Extracted from inline styles in Portfolio/index.html */
+
+/* ─── SECTION INTRO ──────────────────────────────── */
+.intro {
+  padding: 10rem 3rem;
+  border-top: 1px solid var(--color-line);
+  background: var(--color-bg);
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.section-label { display: block; margin-bottom: 1rem; }
+
+.intro-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 2rem;
+  line-height: 1.15;
+}
+
+.intro-title em { font-style: italic; color: var(--color-accent); }
+
+.intro-body {
+  color: var(--color-text-muted);
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+
+.link-arrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-line);
+  transition: gap 0.3s, border-color 0.3s;
+}
+
+.link-arrow::after {
+  content: '→';
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.link-arrow:hover { gap: 1.4rem; border-color: var(--color-accent); }
+

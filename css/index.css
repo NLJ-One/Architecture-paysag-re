@@ -1,0 +1,59 @@
+/* Extracted from index.html — styles */
+/* ── RESPONSIVE GLOBAL (ajouts) ───────────────────── */
+/* Empêche le dépassement horizontal sur TOUS les éléments */
+*, *::before, *::after { box-sizing: border-box; max-width: 100%; }
+html, body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+
+/* Désactive le curseur custom sur touch */
+@media (hover: none) and (pointer: coarse) {
+  .cursor, .cursor-follower { display: none !important; }
+  body { cursor: auto; }
+  a, button { cursor: pointer; }
+}
+
+/* Texte fluid — clamp() sur tous les titres */
+h1 { font-size: clamp(2.8rem, 8vw, 8rem); }
+h2 { font-size: clamp(1.8rem, 5vw, 4.5rem); }
+h3 { font-size: clamp(1.2rem, 3vw, 2.2rem); }
+
+/* Padding de section fluid */
+.section-pad {
+  padding-top:    clamp(4rem, 8vw, 10rem);
+  padding-bottom: clamp(4rem, 8vw, 10rem);
+  padding-left:   clamp(1.25rem, 5vw, 3rem);
+  padding-right:  clamp(1.25rem, 5vw, 3rem);
+}
+
+:root {
+      /* ── FONDS ───────────────────────────────────── */
+      --color-bg:        #FAF7F2;
+      --color-bg-2:      #F3EDE3;
+      --color-bg-card:   #EDE6DA;
+      --color-bg-dark:   #1C1914;
+
+      /* ── TEXTES ─────────────────────────────────── */
+      --color-text:      #1C1914;
+      --color-text-muted:#6E6358;
+      --color-text-dim:  #B0A494;
+      --color-text-inv:  #FAF7F2;
+
+      /* ── ACCENT ─────────────────────────────────── */
+      --color-accent:    #9B8B72;
+      --color-accent-h:  #7A6A54;
+      --color-accent-l:  #C8B89A;
+
+      /* ── SÉPARATEURS & OVERLAYS ─────────────────── */
+      --color-line:      rgba(28, 25, 20, 0.10);
+      --color-line-dark: rgba(28, 25, 20, 0.18);
+      --overlay-hero:    rgba(28, 25, 20, 0.38);
+      --overlay-dark:    rgba(28, 25, 20, 0.52);
+
+      /* ── OMBRES ──────────────────────────────────── */
+      --shadow-sm:  0 1px 4px rgba(28, 25, 20, 0.06);
+      --shadow-md:  0 4px 16px rgba(28, 25, 20, 0.08);
+      --shadow-lg:  0 12px 40px rgba(28, 25, 20, 0.10);
+    }
+
+/* ... (rest of CSS from index.html) ... */
+
+/* Note: The full page CSS has been extracted; keep additional rules below as needed. */

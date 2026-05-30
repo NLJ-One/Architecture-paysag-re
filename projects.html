@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noah Jean-Louis — Projets</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+:root {
+      --color-bg:        #FAF7F2;
+      --color-bg-2:      #F3EDE3;
+      --color-bg-card:   #EDE6DA;
+      --color-bg-dark:   #1C1914;
+
+      --color-text:      #1C1914;
+      --color-text-muted:#6E6358;
+      --color-text-dim:  #B0A494;
+      --color-text-inv:  #FAF7F2;
+
+      --color-accent:    #9B8B72;
+      --color-accent-h:  #7A6A54;
+      --color-accent-l:  #C8B89A;
+
+      --color-line:      rgba(28, 25, 20, 0.10);
+      --color-line-dark: rgba(28, 25, 20, 0.18);
+      --overlay-hero:    rgba(28, 25, 20, 0.38);
+      --overlay-dark:    rgba(28, 25, 20, 0.52);
+
+      --shadow-sm:  0 1px 4px  rgba(28, 25, 20, 0.06);
+      --shadow-md:  0 4px 16px rgba(28, 25, 20, 0.08);
+      --shadow-lg:  0 12px 40px rgba(28, 25, 20, 0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    body.loading { overflow: hidden; }
+
+    img { display: block; width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font-family: inherit; }
+
+    /* Typography */
+    h1, h2, h3, .serif {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    h1 { font-size: clamp(3rem, 8vw, 8rem); }
+    h2 { font-size: clamp(2rem, 5vw, 4.5rem); }
+    h3 { font-size: clamp(1.4rem, 3vw, 2.5rem); }
+
+    .label, .meta, nav a, .tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .subtitle-italic {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      color: var(--color-text-muted);
+    }
+
+    /* Cursor */
+    .cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
+    }
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(200,184,154,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.12s ease-out, width 0.3s, height 0.3s;
+    }
+    .cursor.hovering { width: 60px; height: 60px; background: transparent; border: 1px solid var(--color-accent); }
+
+    /* Loader */
+    .loader {
+      position: fixed; inset: 0;
+      background: var(--color-bg);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .loader.hidden { opacity: 0; visibility: hidden; }
+
+    .loader-line {
+      width: 120px;
+      height: 1px;
+      background: var(--color-line);
+      position: relative;
+      overflow: hidden;
+    }
+    .loader-line::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--color-accent);
+      transform: translateX(-100%);
+      animation: lineLoad 1.2s ease forwards;
+    }
+    .loader-text { color: var(--color-text-muted); }
+
+    @keyframes lineLoad { to { transform: translateX(0); } }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.6rem 3rem;
+      transition: padding 0.4s ease, background 0.4s ease, border-bottom 0.4s ease;
+    }
+    nav.scrolled {
+      padding: 1rem 3rem;
+      background: rgba(12, 11, 9, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-line);
+    }
+    .nav-logo .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--color-text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--color-text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .btn-outline {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      border: 1px solid var(--color-line);
+      padding: 0.6rem 1.4rem;
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-bg);
+    }
+
+    /* Hero projects page */
+    .page-hero {
+      position: relative;
+      height: 70vh;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3rem 5rem;
+      overflow: hidden;
+      border-bottom: 1px solid var(--color-line);
+    }
+    .page-hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .page-hero-img {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.06);
+      animation: heroReveal 1.2s 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes heroReveal { to { transform: scale(1); } }
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,
+        rgba(12,11,9,0.9) 0%,
+        rgba(12,11,9,0.55) 45%,
+        rgba(12,11,9,0.2) 100%);
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .page-hero-label {
+      display: block;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 0.6s 1s forwards;
+    }
+
+    .page-hero-title { overflow: hidden; }
+    .page-hero-title .line {
+      display: block;
+      opacity: 0;
+      transform: translateY(100%);
+      animation: slideUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .page-hero-title .line:nth-child(1) { animation-delay: 1.1s; }
+    .page-hero-title .line:nth-child(2) { animation-delay: 1.22s; font-style: italic; color: var(--color-accent); }
+
+    /* Counter */
+    .hero-counter {
+      position: absolute;
+      top: 50%;
+      right: 3rem;
+      transform: translateY(-50%);
+      z-index: 1;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 0.6s 1.6s forwards;
+      pointer-events: none;
+    }
+    .counter-number {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--color-text);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.2rem;
+      right: 3rem;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 2.05s forwards;
+    }
+    .scroll-bar {
+      width: 1px;
+      height: 50px;
+      background: var(--color-line);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-bar::after {
+      content:'';
+      position: absolute;
+      inset: 0;
+      background: var(--color-accent);
+      animation: scrollAnim 2s 2.2s infinite ease-in-out;
+    }
+    @keyframes scrollAnim {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(250%); }
+    }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* Controls */
+    .projects-controls {
+      position: sticky;
+      top: 60px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(12,11,9,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-line);
+      gap: 1.5rem;
+    }
+
+    .filters { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .filter-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+    .filter-tag {
+      background: none;
+      border: 1px solid var(--color-line);
+      color: var(--color-text-muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
+      border-radius: 999px;
+    }
+    .filter-tag:hover { border-color: rgba(200,184,154,0.55); transform: translateY(-1px); }
+    .filter-tag.active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-bg);
+    }
+
+    .view-toggle { display: flex; gap: 0.4rem; align-items: center; }
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: 1px solid var(--color-line);
+      color: var(--color-text-dim);
+      padding: 0.45rem 0.9rem;
+      cursor: pointer;
+      transition: color 0.25s, border-color 0.25s, transform 0.2s;
+      border-radius: 999px;
+    }
+    .toggle-btn:hover { transform: translateY(-1px); }
+    .toggle-btn.active { color: var(--color-text); border-color: var(--color-accent); }
+
+    /* Grille */
+    .projects-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.2rem 3rem 8rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--color-bg);
+    }
+
+    .projects-list.hidden { display: none; }
+
+    /* Cards */
+    .project-card { background: var(--color-bg-card); overflow: hidden; }
+    .card-link { display: block; }
+
+    .project-card--wide { grid-column: span 2; }
+    .project-card--tall { grid-row: span 2; }
+
+    .card-media { position: relative; overflow: hidden; }
+    .card-img {
+      background-size: cover;
+      background-position: center;
+      aspect-ratio: 16 / 9;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card--tall .card-img { aspect-ratio: 3 / 4; }
+
+    .card-overlay {
+      position: absolute; inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.4rem;
+      background: linear-gradient(to top, rgba(12,11,9,0.7) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .card-cta { color: var(--color-accent); }
+
+    .project-card:hover .card-img { transform: scale(1.04); }
+    .project-card:hover .card-overlay { opacity: 1; }
+
+    .card-body {
+      padding: 1.2rem 1.4rem 1.6rem;
+      border-top: 1px solid var(--color-line);
+    }
+    .card-meta { display: flex; gap: 1.2rem; margin-bottom: 0.7rem; flex-wrap: wrap; }
+    .card-index { color: var(--color-text-dim); }
+    .card-year, .card-location { color: var(--color-text-muted); }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .card-title em { font-style: italic; color: var(--color-accent); }
+
+    .card-cat { color: var(--color-text-dim); }
+
+    /* Filter animations */
+    .hidden { display: none !important; }
+    .project-card.filtering { opacity: 0; transform: translateY(12px); transition: opacity 0.4s, transform 0.4s; }
+
+    /* List */
+    .projects-list {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.8rem 3rem 8rem;
+      background: transparent;
+    }
+
+    .list-header {
+      display: grid;
+      grid-template-columns: 50px 1fr 160px 80px 160px;
+      gap: 0;
+      padding: 1.2rem 0;
+      border-top: 1px solid var(--color-line);
+      border-bottom: 1px solid var(--color-line);
+      align-items: center;
+    }
+
+    .list-row {
+      display: grid;
+      grid-template-columns: 50px 1fr 160px 80px 160px;
+      align-items: center;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--color-line);
+      color: var(--color-text-muted);
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .list-row::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-accent);
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .list-row:hover { color: var(--color-text); transform: translateY(-1px); }
+    .list-row:hover::before { width: 100%; }
+
+    .list-col-num { color: var(--color-text-dim); }
+    .list-col-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 300;
+      color: var(--color-text);
+      transition: color 0.3s, transform 0.4s;
+    }
+
+    .list-row:hover .list-col-title {
+      color: var(--color-accent);
+      transform: translateX(6px);
+    }
+    .list-col-title em { font-style: italic; }
+
+    /* Ghost image on list hover */
+    .list-hover-img {
+      position: fixed;
+      width: 280px;
+      aspect-ratio: 4 / 3;
+      background-size: cover;
+      background-position: center;
+      pointer-events: none;
+      z-index: 500;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.9) rotate(-2deg);
+      transition: opacity 0.3s, transform 0.3s;
+      border: 1px solid var(--color-line);
+      left: 0;
+      top: 0;
+    }
+    .list-hover-img.visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Footer */
+    .footer {
+      background: var(--color-bg);
+      border-top: 1px solid var(--color-line);
+      padding: 6rem 3rem 3rem;
+    }
+    .footer-top { padding-bottom: 6rem; }
+    .footer-title {
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 1.05;
+      margin-bottom: 2.5rem;
+    }
+    .footer-title em { font-style: italic; color: var(--color-accent); }
+
+    .footer-email {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 300;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-line);
+      padding-bottom: 4px;
+      display: inline-block;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .footer-email:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-line);
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-socials { display: flex; gap: 2rem; }
+    .footer-socials a { color: var(--color-text-dim); transition: color 0.3s; }
+    .footer-socials a:hover { color: var(--color-text); }
+
+    @media (max-width: 1024px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-card--wide { grid-column: span 2; }
+      .list-header, .list-row { grid-template-columns: 40px 1fr 120px 70px; }
+      .list-col-loc { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-cta { display: none; }
+      .nav-links { display: none; }
+      .page-hero { padding: 0 1.5rem 3rem; }
+      .hero-counter { display: none; }
+      .hero-scroll-hint { right: 1.5rem; }
+      .projects-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1.5rem;
+        top: 60px;
+      }
+      .projects-grid { grid-template-columns: 1fr; padding: 1.5rem 1.5rem 7rem; gap: 1.5rem; }
+      .projects-list { padding: 1.6rem 1.5rem 7rem; }
+      .list-header, .list-row { grid-template-columns: 36px 1fr 80px; }
+      .list-col-cat, .list-col-loc { display: none; }
+      .list-hover-img { display: none; }
+      body { cursor: auto; }
+      .cursor, .cursor-follower { display: none; }
+    }
+
+  </style>
+</head>
+<body class="loading">
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <div class="loader" id="loader">
+    <div class="loader-line"></div>
+    <span class="loader-text label">Chargement</span>
+  </div>
+
+  <nav id="nav">
+    <div class="nav-logo">
+      <a href="index.html"><span class="nav-name">Noah Jean-Louis</span></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="projects.html" data-text="Projets">Projets</a></li>
+      <li><a href="index.html#about" data-text="À propos">À propos</a></li>
+      <li><a href="index.html#contact" data-text="Contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="index.html#contact" class="btn-outline">Discutons</a>
+    </div>
+  </nav>
+
+  <section id="projects-hero" class="page-hero">
+    <div class="page-hero-bg">
+      <div class="page-hero-img" style="background-image:url('images/Paysage2.jpg')"></div>
+      <div class="page-hero-overlay"></div>
+    </div>
+
+    <div class="page-hero-content">
+      <span class="label page-hero-label">Portfolio</span>
+      <h1 class="page-hero-title">
+        <span class="line">Projets</span>
+        <span class="line italic">sélectionnés</span>
+      </h1>
+    </div>
+
+    <div class="hero-counter" aria-label="Nombre de réalisations">
+      <span class="counter-number" id="projectCounter">0</span>
+      <span class="label">réalisations</span>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span class="label">Découvrir</span>
+      <div class="scroll-bar"></div>
+    </div>
+  </section>
+
+  <div class="projects-controls" id="controls">
+    <div class="filters">
+      <span class="label filters-label">Filtrer</span>
+      <div class="filter-tags">
+        <button class="filter-tag active" data-filter="all">Tous</button>
+        <button class="filter-tag" data-filter="residentiel">Résidentiel</button>
+        <button class="filter-tag" data-filter="collectif">Collectif</button>
+        <button class="filter-tag" data-filter="commercial">Commercial</button>
+        <button class="filter-tag" data-filter="culturel">Culturel</button>
+        <button class="filter-tag" data-filter="renovation">Rénovation</button>
+      </div>
+    </div>
+
+    <div class="view-toggle">
+      <button class="toggle-btn active" id="btnGrid" title="Vue grille">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <rect x="1" y="1" width="6" height="6" stroke="currentColor" stroke-width="1"/>
+          <rect x="9" y="1" width="6" height="6" stroke="currentColor" stroke-width="1"/>
+          <rect x="1" y="9" width="6" height="6" stroke="currentColor" stroke-width="1"/>
+          <rect x="9" y="9" width="6" height="6" stroke="currentColor" stroke-width="1"/>
+        </svg>
+        <span class="label">Grille</span>
+      </button>
+
+      <button class="toggle-btn" id="btnList" title="Vue liste">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <line x1="1" y1="4" x2="15" y2="4" stroke="currentColor" stroke-width="1"/>
+          <line x1="1" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1"/>
+          <line x1="1" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width="1"/>
+        </svg>
+        <span class="label">Liste</span>
+      </button>
+    </div>
+  </div>
+
+  <section class="projects-grid" id="projectsGrid">
+    <article class="project-card project-card--wide" data-category="residentiel">
+      <a href="#" class="card-link">
+        <div class="card-media">
+          <div class="card-img" style="background-image:url('images/aménagement 1.png')"></div>
+          <div class="card-overlay"><span class="card-cta label">Voir le projet →</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-index label">01</span>
+            <span class="card-year label">2024</span>
+            <span class="card-location label">Paris, FR</span>
+          </div>
+          <h3 class="card-title">Villa Contemporaine <em>Jardins</em></h3>
+          <span class="card-cat label">Résidentiel privé</span>
+        </div>
+      </a>
+    </article>
+
+    <article class="project-card" data-category="collectif">
+      <a href="#" class="card-link">
+        <div class="card-media">
+          <div class="card-img" style="background-image:url('images/paysageprivé1.jpg')"></div>
+          <div class="card-overlay"><span class="card-cta label">Voir →</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-index label">02</span>
+            <span class="card-year label">2026</span>
+            <span class="card-location label">Lyon, FR</span>
+          </div>
+          <h3 class="card-title">Jardin <em>Confluence</em></h3>
+          <span class="card-cat label">3D</span>
+        </div>
+      </a>
+    </article>
+
+    <article class="project-card" data-category="commercial">
+      <a href="#" class="card-link">
+        <div class="card-media">
+          <div class="card-img" style="background-image:url('images/paysageprivé2.jpg')"></div>
+          <div class="card-overlay"><span class="card-cta label">Voir →</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-index label">03</span>
+            <span class="card-year label">2023</span>
+            <span class="card-location label">Bordeaux, FR</span>
+          </div>
+          <h3 class="card-title">Espace <em> de vie extérieur</em></h3>
+          <span class="card-cat label">Commercial</span>
+        </div>
+      </a>
+    </article>
+
+    <article class="project-card project-card--tall" data-category="culturel">
+      <a href="#" class="card-link">
+        <div class="card-media">
+          <div class="card-img" style="background-image:url('images/MAISON FINAL.png')"></div>
+          <div class="card-overlay"><span class="card-cta label">Voir →</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-index label">04</span>
+            <span class="card-year label">2022</span>
+            <span class="card-location label">Marseille, FR</span>
+          </div>
+          <h3 class="card-title">Médiathèque <em>du Port</em></h3>
+          <span class="card-cat label">Culturel</span>
+        </div>
+      </a>
+    </article>
+
+    <article class="project-card" data-category="renovation">
+      <a href="#" class="card-link">
+        <div class="card-media">
+          <div class="card-img" style="background-image:url('images/paysage3.jpg')"></div>
+          <div class="card-overlay"><span class="card-cta label">Voir →</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-index label">05</span>
+            <span class="card-year label">2022</span>
+            <span class="card-location label">Nantes, FR</span>
+          </div>
+          <h3 class="card-title">Loft <em>Industriel</em></h3>
+          <span class="card-cat label">Rénovation</span>
+        </div>
+      </a>
+    </article>
+
+    <article class="project-card" data-category="residentiel">
+      <a href="#" class="card-link">
+        <div class="card-media">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80')"></div>
+          <div class="card-overlay"><span class="card-cta label">Voir →</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-index label">06</span>
+            <span class="card-year label">2021</span>
+            <span class="card-location label">Nice, FR</span>
+          </div>
+          <h3 class="card-title">Maison <em>du Cap</em></h3>
+          <span class="card-cat label">Résidentiel privé</span>
+        </div>
+      </a>
+    </article>
+
+    <article class="project-card project-card--wide" data-category="collectif">
+      <a href="#" class="card-link">
+        <div class="card-media">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=1200&q=80')"></div>
+          <div class="card-overlay"><span class="card-cta label">Voir le projet →</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-index label">07</span>
+            <span class="card-year label">2021</span>
+            <span class="card-location label">Toulouse, FR</span>
+          </div>
+          <h3 class="card-title">Résidence <em>Garonne</em></h3>
+          <span class="card-cat label">Collectif</span>
+        </div>
+      </a>
+    </article>
+
+    <article class="project-card" data-category="culturel">
+      <a href="#" class="card-link">
+        <div class="card-media">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=900&q=80')"></div>
+          <div class="card-overlay"><span class="card-cta label">Voir →</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-index label">08</span>
+            <span class="card-year label">2020</span>
+            <span class="card-location label">Strasbourg, FR</span>
+          </div>
+          <h3 class="card-title">Pavillon <em>des Arts</em></h3>
+          <span class="card-cat label">Culturel</span>
+        </div>
+      </a>
+    </article>
+  </section>
+
+  <section class="projects-list hidden" id="projectsList">
+    <div class="list-header">
+      <span class="label">#</span>
+      <span class="label">Projet</span>
+      <span class="label">Catégorie</span>
+      <span class="label">Année</span>
+      <span class="label">Lieu</span>
+    </div>
+
+    <a href="#" class="list-row" data-category="residentiel" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80">
+      <span class="list-col-num label"></span>
+      <span class="list-col-title label"> <em></em></span>
+      <span class="list-col-cat label">Résidentiel</span>
+      <span class="list-col-year label">2024</span>
+      <span class="list-col-loc label">Paris, FR</span>
+    </a>
+
+    <a href="#" class="list-row" data-category="collectif" data-img="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80">
+      <span class="list-col-num label">02</span>
+      <span class="list-col-title label">Quartier <em>Confluence</em></span>
+      <span class="list-col-cat label">Collectif</span>
+      <span class="list-col-year label">2023</span>
+      <span class="list-col-loc label">Lyon, FR</span>
+    </a>
+
+    <a href="#" class="list-row" data-category="commercial" data-img="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80">
+      <span class="list-col-num label">03</span>
+      <span class="list-col-title label">Espace <em>Commercial K</em></span>
+      <span class="list-col-cat label">Commercial</span>
+      <span class="list-col-year label">2023</span>
+      <span class="list-col-loc label">Bordeaux, FR</span>
+    </a>
+
+    <a href="#" class="list-row" data-category="culturel" data-img="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80">
+      <span class="list-col-num label">04</span>
+      <span class="list-col-title label">Médiathèque <em>du Port</em></span>
+      <span class="list-col-cat label">Culturel</span>
+      <span class="list-col-year label">2022</span>
+      <span class="list-col-loc label">Marseille, FR</span>
+    </a>
+
+    <a href="#" class="list-row" data-category="renovation" data-img="images/paysage3.jpg">
+      <span class="list-col-num label">05</span>
+      <span class="list-col-title label">Loft <em>Industriel</em></span>
+      <span class="list-col-cat label">Rénovation</span>
+      <span class="list-col-year label">2022</span>
+      <span class="list-col-loc label">Nantes, FR</span>
+    </a>
+
+    <a href="#" class="list-row" data-category="residentiel" data-img="images/paysageprivé2.jpg">
+      <span class="list-col-num label">06</span>
+      <span class="list-col-title label">Maison <em>du Cap</em></span>
+      <span class="list-col-cat label">Résidentiel</span>
+      <span class="list-col-year label">2021</span>
+      <span class="list-col-loc label">Nice, FR</span>
+    </a>
+
+    <a href="#" class="list-row" data-category="collectif" data-img="images/paysageprivé1.jpg">
+      <span class="list-col-num label">07</span>
+      <span class="list-col-title label"> <em></em></span>
+      <span class="list-col-cat label"></span>
+      <span class="list-col-year label"></span>
+      <span class="list-col-loc label"></span>
+    </a>
+
+    <a href="#" class="list-row" data-category="culturel" data-img="images/MAISON FINAL.png">
+      <span class="list-col-num label"></span>
+      <span class="list-col-title label"> <em></em></span>
+      <span class="list-col-cat label"></span>
+      <span class="list-col-year label"></span>
+      <span class="list-col-loc label"></span>
+    </a>
+
+    <div class="list-hover-img" id="listHoverImg"></div>
+  </section>
+
+  <footer id="contact" class="footer">
+    <div class="footer-top">
+      <div class="footer-cta">
+        <span class="label">Contact</span>
+        <h2 class="footer-title">
+          Commençons votre<br>
+          <em>prochain projet</em>
+        </h2>
+        <a href="mailto:hello@tonnom.com" class="footer-email">hello@tonnom.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-name label">Thomas Renard © 2024</span>
+      <div class="footer-socials">
+        <a href="#" class="label">Instagram</a>
+        <a href="#" class="label">LinkedIn</a>
+        <a href="#" class="label">Behance</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const cursorFollow = document.getElementById('cursor-follower');
+    const loader = document.getElementById('loader');
+    const nav = document.getElementById('nav');
+
+    let mouseX = 0, mouseY = 0;
+    let followX = 0, followY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (cursor) {
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+      }
+    });
+
+    function animateCursor() {
+      followX += (mouseX - followX) * 0.1;
+      followY += (mouseY - followY) * 0.1;
+      if (cursorFollow) {
+        cursorFollow.style.left = followX + 'px';
+        cursorFollow.style.top = followY + 'px';
+      }
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a, button, .card-link, .filter-tag, .toggle-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if (!cursor || !cursorFollow) return;
+        cursor.classList.add('hovering');
+        cursorFollow.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      });
+      el.addEventListener('mouseleave', () => {
+        if (!cursor || !cursorFollow) return;
+        cursor.classList.remove('hovering');
+        cursorFollow.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (loader) loader.classList.add('hidden');
+        document.body.classList.remove('loading');
+      }, 1500);
+    });
+
+    window.addEventListener('scroll', () => {
+      if (!nav) return;
+      if (window.scrollY > 80) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }, { passive: true });
+
+    // Counter
+    const counterEl = document.getElementById('projectCounter');
+    const totalProjects = document.querySelectorAll('.project-card').length;
+
+    function animateCounter(target, el, duration = 1500) {
+      let start = null;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = String(Math.floor(eased * target));
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = String(target);
+      };
+      requestAnimationFrame(step);
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (counterEl) animateCounter(totalProjects, counterEl);
+      }, 1700);
+    });
+
+    // View toggle
+    const btnGrid = document.getElementById('btnGrid');
+    const btnList = document.getElementById('btnList');
+    const projectsGrid = document.getElementById('projectsGrid');
+    const projectsList = document.getElementById('projectsList');
+
+    function setView(view) {
+      if (view === 'grid') {
+        if (projectsGrid) projectsGrid.classList.remove('hidden');
+        if (projectsList) projectsList.classList.add('hidden');
+        if (btnGrid) btnGrid.classList.add('active');
+        if (btnList) btnList.classList.remove('active');
+      } else {
+        if (projectsGrid) projectsGrid.classList.add('hidden');
+        if (projectsList) projectsList.classList.remove('hidden');
+        if (btnList) btnList.classList.add('active');
+        if (btnGrid) btnGrid.classList.remove('active');
+      }
+    }
+
+    if (btnGrid) btnGrid.addEventListener('click', () => setView('grid'));
+    if (btnList) btnList.addEventListener('click', () => setView('list'));
+
+    // Filters (persist state across views)
+    const filterBtns = document.querySelectorAll('.filter-tag');
+    const gridCards = document.querySelectorAll('.project-card');
+    const listRows = document.querySelectorAll('.list-row');
+
+    let activeFilter = 'all';
+
+    function applyFilter() {
+      [...gridCards].forEach(card => {
+        const show = activeFilter === 'all' || card.dataset.category === activeFilter;
+        card.classList.toggle('hidden', !show);
+      });
+
+      [...listRows].forEach(row => {
+        const show = activeFilter === 'all' || row.dataset.category === activeFilter;
+        row.classList.toggle('hidden', !show);
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+
+        // Small cinematic out
+        [...gridCards, ...listRows].forEach(el => el.classList.add('filtering'));
+        setTimeout(() => {
+          [...gridCards, ...listRows].forEach(el => el.classList.remove('filtering'));
+          applyFilter();
+        }, 280);
+      });
+    });
+
+    // Ghost image on list hover
+    const hoverImg = document.getElementById('listHoverImg');
+
+    listRows.forEach(row => {
+      row.addEventListener('mouseenter', () => {
+        if (!hoverImg) return;
+        const imgUrl = row.dataset.img;
+        hoverImg.style.backgroundImage = `url(${imgUrl})`;
+        hoverImg.classList.add('visible');
+      });
+      row.addEventListener('mouseleave', () => {
+        if (!hoverImg) return;
+        hoverImg.classList.remove('visible');
+      });
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!hoverImg) return;
+      hoverImg.style.left = e.clientX + 'px';
+      hoverImg.style.top = e.clientY + 'px';
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.project-card, .list-row, .projects-controls, #projects-hero .page-hero-content');
+    revealEls.forEach(el => el.classList.add('reveal'));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 80);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchors within same page (and avoid preventing mailto)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Keep filter applied on load
+    applyFilter();
+  </script>
+</body>
+</html>
+

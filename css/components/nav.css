@@ -1,0 +1,191 @@
+/* Extracted from inline styles in Portfolio/index.html */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem 3rem;
+  transition: padding 0.4s ease, background 0.4s ease, border-bottom 0.4s ease;
+}
+
+nav.scrolled {
+  padding: 1rem 3rem;
+  background: rgba(250, 247, 242, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+nav.scrolled .nav-logo .nav-name { color: var(--color-text); }
+nav.scrolled .nav-links a { color: var(--color-text-muted); }
+nav.scrolled .nav-links a:hover { color: var(--color-text); }
+nav.scrolled .btn-outline { color: var(--color-text); border-color: var(--color-line-dark); }
+nav.scrolled .btn-outline:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+}
+
+.nav-logo .nav-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--color-text); }
+.nav-links a:hover::after { width: 100%; }
+
+.btn-outline {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  border: 1px solid var(--color-line);
+  padding: 0.6rem 1.4rem;
+  transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ─── NAVIGATION RESPONSIVE (hamburger) ───────── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  padding: 4px;
+}
+
+.ham-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--color-text);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s, width 0.3s;
+}
+
+.nav-hamburger.open .ham-line:nth-child(1) {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.nav-hamburger.open .ham-line:nth-child(2) {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+.nav-mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 2rem 3rem;
+  transform: translateX(100%);
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+
+.nav-mobile-overlay.open {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.nav-mobile-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-mobile-links li {
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-line);
+  padding-bottom: 0.5rem;
+}
+
+.nav-mobile-links a {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 10vw, 4rem);
+  font-weight: 300;
+  color: var(--color-text);
+  padding: 0.6rem 0;
+  transform: translateY(40px);
+  opacity: 0;
+  transition: color 0.3s, transform 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.5s;
+}
+
+.nav-mobile-overlay.open .nav-mobile-links a {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.nav-mobile-links li:nth-child(1) a { transition-delay: 0.1s; }
+.nav-mobile-links li:nth-child(2) a { transition-delay: 0.17s; }
+.nav-mobile-links li:nth-child(3) a { transition-delay: 0.24s; }
+
+.nav-mobile-links a:hover { color: var(--color-accent); }
+
+.nav-mobile-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-line);
+}
+
+@media (max-width: 480px) {
+  .nav-hamburger { width: 34px; height: 34px; }
+}
+

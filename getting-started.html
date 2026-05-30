@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Portfolio Noah Jean-Louis</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><a href="index.html">Noah Jean-Louis</a></div>
+                <nav class="nav">
+                    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+                    <ul class="nav-menu">
+                        <li><a href="index.html">Accueil</a></li>
+                           <li><a href="projects.html">Projets</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">À propos</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Bienvenue dans le Portfolio</h1>
+                <p>Guide de démarrage et structure du site.</p>
+            </div>
+        </section>
+
+        <section style="padding: 3rem 0; background: white;">
+            <div class="container">
+                <div style="max-width: 800px;">
+                    <h2>Pour commencer</h2>
+                    <p>Ce portfolio a été conçu pour être facile à utiliser et à personnaliser. Voici les étapes principales:</p>
+
+                    <h3>1. Remplacer les images</h3>
+                    <p>Placez vos images dans le dossier <code>/images/</code>:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ hero-image.jpg</li>
+                        <li>✓ project-1.jpg, project-2.jpg, project-3.jpg</li>
+                        <li>✓ arch-1.jpg, arch-2.jpg</li>
+                        <li>✓ design-1.jpg, design-2.jpg</li>
+                        <li>✓ photo-1.jpg, photo-2.jpg</li>
+                        <li>✓ about-portrait.jpg</li>
+                    </ul>
+
+                    <h3>2. Mettre à jour vos informations</h3>
+                    <p>Modifier dans les fichiers HTML:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Email et téléphone dans <code>contact.html</code></li>
+                        <li>✓ Bio et expertise dans <code>about.html</code></li>
+                        <li>✓ Liens des réseaux sociaux dans le footer</li>
+                    </ul>
+
+                    <h3>3. Personnaliser les couleurs</h3>
+                    <p>Modifier les variables CSS dans <code>css/style.css</code>:</p>
+                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto;">
+:root {
+    --color-primary: #1a1a1a;
+    --color-accent: #c4a77d;
+}</pre>
+
+                    <h2 style="margin-top: 2rem;">Déployer le site</h2>
+                    <p>Vous pouvez héberger ce portfolio gratuitement sur:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ <a href="https://netlify.com" target="_blank">Netlify</a></li>
+                        <li>✓ <a href="https://vercel.com" target="_blank">Vercel</a></li>
+                        <li>✓ <a href="https://pages.github.com" target="_blank">GitHub Pages</a></li>
+                        <li>✓ Votre hébergeur FTP préféré</li>
+                    </ul>
+
+                    <h2 style="margin-top: 2rem;">📞 Intégration du formulaire</h2>
+                    <p>Pour que le formulaire fonctionne réellement, utilisez un service comme:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ <a href="https://formspree.io" target="_blank" rel="noopener noreferrer">Formspree</a></li>
+                        <li>✓ <a href="https://www.netlify.com/products/forms/" target="_blank" rel="noopener noreferrer">Netlify Forms</a></li>
+                        <li>✓ <a href="https://www.emailjs.com" target="_blank" rel="noopener noreferrer">EmailJS</a></li>
+                    </ul>
+
+                    <h2 style="margin-top: 2rem;">Structure du projet</h2>
+                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto;">
+Portfolio/
+├── index.html          ← Page d'accueil
+├── projects.html       ← Galerie de projets
+├── services.html       ← Services détaillés
+├── about.html          ← Biographie
+├── contact.html        ← Formulaire
+├── README.md           ← Documentation
+├── css/
+│   └── style.css       ← Tous les styles
+├── js/
+│   └── script.js       ← Interactivité
+└── images/             ← Vos images
+</pre>
+
+                    <h2 style="margin-top: 2rem;">Fonctionnalités incluses</h2>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Responsive (mobile, tablet, desktop)</li>
+                        <li>✓ Menu hamburger automatique</li>
+                        <li>✓ Filtrage des projets</li>
+                        <li>✓ Formulaire avec validation</li>
+                        <li>✓ Animations fluides</li>
+                        <li>✓ Lazy loading des images</li>
+                        <li>✓ SEO-friendly</li>
+                        <li>✓ Accessibilité (WCAG)</li>
+                    </ul>
+
+                    <h2 style="margin-top: 2rem;">FAQ</h2>
+
+                    <h3>Comment ajouter un nouveau projet?</h3>
+                        <p>Dupliquer un bloc <code>&lt;article class="project-item"&gt;</code> dans <code>projects.html</code> et adapter le contenu.</p>
+
+                    <h3>Comment changer la police?</h3>
+                    <p>Modifier <code>--font-main</code> et <code>--font-display</code> dans <code>css/style.css</code>.</p>
+
+                    <h3>Le site fonctionne sans internet?</h3>
+                    <p>Oui! C'est un site statique - pas de serveur nécessaire.</p>
+
+                    <h2 style="margin-top: 2rem;">Liens utiles</h2>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ <a href="README.md" target="_blank">Documentation complète (README.md)</a></li>
+                        <li>✓ <a href="index.html">Retour à l'accueil</a></li>
+                    </ul>
+
+                    <p style="margin-top: 2rem; color: #999; font-size: 0.9rem;">
+                        Portfolio créé en 2026 | Design moderne et minimaliste
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Noah J.</h4>
+                    <p>Designer créatif multidisciplinaire</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                           <li><a href="projects.html">Projets</a></li>
+                        <li><a href="about.html">À propos</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Noah Jean-Louis. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>

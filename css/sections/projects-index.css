@@ -1,0 +1,137 @@
+/* Extracted from inline styles in Portfolio/index.html */
+
+/* ─── PROJETS ────────────────────────────────────── */
+.projects {
+  padding: 0 3rem 8rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 4rem 0 3rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.projects-header h2 {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+}
+
+.project {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+
+.project-link {
+  display: block;
+}
+
+.project-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-img {
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
+}
+
+.project:hover .project-img {
+  transform: scale(1.04);
+}
+
+.project-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(12,11,9,0.7) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.project:hover .project-img-overlay {
+  opacity: 1;
+}
+
+.project-info {
+  padding: 1.2rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.project-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.project-title {
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  line-height: 1.2;
+}
+
+.project-title em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.project-category {
+  color: var(--color-text-dim);
+}
+
+.projects {
+  display: block;
+}
+
+.projects > .projects-header + .projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+/* Layouts projets — style CARGO */
+.project--large {
+  grid-column: 1 / -1;
+}
+
+.project--large .project-img {
+  height: clamp(350px, 55vw, 650px);
+}
+
+.projects-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+.project--half .project-img {
+  height: clamp(250px, 35vw, 450px);
+}
+
+.project--full {
+  grid-column: 1 / -1;
+}
+
+.project--full .project-img {
+  height: clamp(300px, 40vw, 500px);
+}
+
+/* Numéro index — style CARGO */
+.project::before {
+  content: attr(data-index);
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+  z-index: 2;
+}
+

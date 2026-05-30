@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erreur — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #FAF7F2;
+      color: #1C1914;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: clamp(2rem, 8vw, 6rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .error-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: clamp(2rem, 8vw, 6rem);
+      width: 1px;
+      height: 100%;
+      background: rgba(28, 25, 20, 0.10);
+    }
+
+    .error-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B0A494;
+      margin-bottom: 2rem;
+      padding-left: 1.5rem;
+    }
+
+    .error-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .error-title em {
+      font-style: italic;
+      color: #9B8B72;
+    }
+
+    .error-desc {
+      font-size: 14px;
+      color: #6E6358;
+      line-height: 1.8;
+      max-width: 520px;
+      margin-bottom: 1.2rem;
+      padding-left: 1.5rem;
+    }
+
+    .error-files {
+      font-size: 11px;
+      font-family: 'DM Sans', monospace;
+      color: #B0A494;
+      background: #EDE6DA;
+      border: 1px solid rgba(28,25,20,0.10);
+      padding: 0.8rem 1.2rem;
+      margin: 1.2rem 0 2.5rem 1.5rem;
+      max-width: 700px;
+      line-height: 1.9;
+      display: none;
+    }
+
+    .error-files.visible { display: block; }
+
+    .error-files-label {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B0A494;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .error-files-item { display: block; color: #9B8B72; }
+    .error-files-item::before { content: '— '; }
+
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      padding-left: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-back {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FAF7F2;
+      background: #1C1914;
+      border: 1px solid #1C1914;
+      padding: 0.8rem 1.8rem;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      display: inline-block;
+    }
+
+    .btn-back:hover { background: #9B8B72; border-color: #9B8B72; }
+
+    .btn-retry {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #1C1914;
+      background: transparent;
+      border: 1px solid rgba(28,25,20,0.25);
+      padding: 0.8rem 1.8rem;
+      text-decoration: none;
+      transition: border-color 0.3s, background 0.3s;
+      display: inline-block;
+    }
+
+    .btn-retry:hover { border-color: #1C1914; background: rgba(28,25,20,0.04); }
+
+    @media (max-width: 768px) {
+      .error-page::before { display: none; }
+      .error-label,
+      .error-title,
+      .error-desc,
+      .error-files,
+      .error-actions { padding-left: 0; margin-left: 0; }
+      .error-files { margin: 1.2rem 0 2.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <span class="error-label">Erreur de chargement</span>
+
+    <h1 class="error-title">
+      Quelque chose<br>
+      <em>s'est mal passé</em>
+    </h1>
+
+    <p class="error-desc">
+      Un ou plusieurs fichiers CSS n'ont pas pu être chargés.
+      Le site ne peut pas s'afficher correctement.
+    </p>
+
+    <div class="error-files" id="errorFiles">
+      <span class="error-files-label">Fichiers non chargés</span>
+      <span id="errorFilesList"></span>
+    </div>
+
+    <div class="error-actions">
+      <a class="btn-back" id="btnBack" href="index.html">Retour à l'accueil</a>
+      <a class="btn-retry" id="btnRetry" href="#">Réessayer</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const files = params.get('files');
+      const from = params.get('from') || 'index.html';
+
+      const btnBack = document.getElementById('btnBack');
+      if (btnBack) btnBack.setAttribute('href', from);
+
+      const btnRetry = document.getElementById('btnRetry');
+      if (btnRetry) btnRetry.setAttribute('href', from);
+
+      if (files) {
+        const list = files.split(',').map(s => s.trim()).filter(Boolean);
+        const container = document.getElementById('errorFiles');
+        const listEl = document.getElementById('errorFilesList');
+
+        if (container && listEl && list.length) {
+          container.classList.add('visible');
+          listEl.innerHTML = list.map(f => '<span class="error-files-item">' + f + '</span>').join('');
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
+

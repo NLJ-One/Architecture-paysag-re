@@ -1,0 +1,22 @@
+/* Extracted from inline styles in Portfolio/index.html */
+
+/* ─── RESPONSIVE ───────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-cta { display: none; }
+  .nav-links { display: none; }
+  .hero { padding: 0 1.5rem 3rem; }
+  .intro, .projects, .about, .footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .projects-row { grid-template-columns: 1fr; }
+  .hero-bottom-meta { display: none; }
+  .about-stats { gap: 1.5rem; }
+  body { cursor: auto; }
+  .cursor, .cursor-follower { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Menu mobile overlay */
+  nav { background: rgba(12,11,9,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+}
+

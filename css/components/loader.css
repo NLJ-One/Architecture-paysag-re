@@ -1,0 +1,45 @@
+/* Extracted from inline styles in Portfolio/index.html */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-line {
+  width: 120px;
+  height: 1px;
+  background: var(--color-line);
+  position: relative;
+  overflow: hidden;
+}
+
+.loader-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: translateX(-100%);
+  animation: lineLoad 1.2s ease forwards;
+}
+
+.loader-text {
+  color: var(--color-text-muted);
+}
+
+@keyframes lineLoad {
+  to { transform: translateX(0); }
+}
+
