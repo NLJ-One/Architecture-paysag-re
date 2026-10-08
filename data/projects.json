@@ -1,0 +1,21 @@
+[
+  {
+    "slug": "terrasse-paysagere",
+    "titre": "Jardin privé et terrasse",
+    "lieu": "Lieu à préciser",
+    "annee": "Année à préciser",
+    "categorie": "Jardin privé",
+    "surface": "À préciser",
+    "mission": "Conception paysagère · perspectives 3D",
+    "description": [
+      "Une terrasse en bois et une pergola composent un espace de détente au bord d'un bassin, dans un jardin planté de palmiers et de végétation dense.",
+      "Les perspectives mettent en relation les circulations, les assises et les vues sur le jardin. La localisation, l'année et la surface sont à préciser avant publication."
+    ],
+    "couverture": "images/terrasse-paysagere/cover.webp",
+    "couvertureAlt": "Terrasse en bois et bassin au milieu d'un jardin planté de palmiers",
+    "images": [
+      { "src": "images/terrasse-paysagere/01.webp", "alt": "Détail de la terrasse et des claustras en bois dans le jardin", "width": 1920, "height": 1080 },
+      { "src": "images/terrasse-paysagere/02.webp", "alt": "Vue d'ensemble du jardin avec pergola, cheminement et bassin", "width": 1920, "height": 1081 }
+    ]
+  }
+]
